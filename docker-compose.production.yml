@@ -1,11 +1,8 @@
-# docker-compose.production.yml
-
 volumes:
   pg_data_production:
   static_volume:
   media_volume:
 
-# Всё отличие — заменяем build на image и указываем, какой образ использовать
 services:
   db:
     image: postgres:13.10
@@ -13,19 +10,19 @@ services:
     volumes:
       - pg_data_production:/var/lib/postgresql/data
   backend:
-    image: agaldanova/kittygram_backend # Качаем с Docker Hub
+    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_backend
     env_file: .env
     volumes:
       - static_volume:/backend_static
       - media_volume:/app/media
   frontend:
-    image: agaldanova/kittygram_frontend  # Качаем с Docker Hub
+    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_volume:/frontend_static
   gateway:
-    image: agaldanova/kittygram_gateway  # Качаем с Docker Hub
+    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_gateway
     env_file: .env
     depends_on:
       - backend
