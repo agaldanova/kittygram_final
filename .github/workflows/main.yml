@@ -171,4 +171,4 @@ jobs:
         message: |
           Деплой успешно выполнен!
           URL: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-          Автор (github.actor): (github.event.commits[0].message)
+          Автор ${{ github.actor }}: ${{ github.event.commits[0].message }}
