@@ -1,26 +1,62 @@
-#  Как работать с репозиторием финального задания
+# Kittygram
+Kittygram - веб-приложение для публикации фотографий котиков.
+Финальный проект: контейнеры и CI/CD для Kittygram
+## Workflow status
+```
+[![Main Taski workflow](https://github.com/agaldanova/kittygram_final/actions/workflows/main.yml/badge.svg)](https://github.com/agaldanova/kittygram_final/actions/workflows/main.yml)
+```
+## Технологии
+- Python 3.12
+- Django 5.1
+- Django REST Framework
+- PostgreSQL
+- React
+- Nginx
+- Docker
+- GitHub Actions
 
-## Что нужно сделать
+### Как запустить проект:
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
+Клонировать репозиторий и перейти в него в командной строке:
 
-## Как проверить работу с помощью автотестов
-
-В корне репозитория создайте файл tests.yml со следующим содержимым:
-```yaml
-repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (https://доменное_имя) на ваш проект Kittygram
-taski_domain: полная ссылка (https://доменное_имя) на ваш проект Taski
-dockerhub_username: ваш_логин_на_докерхабе
+```
+git clone https://github.com/agaldanova/kittygram_final.git
 ```
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+```
+cd kittygram_final
+```
 
-Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
+Создайте файл .env и укажите необходимые переменные окружения:
+```
+USE_SQLITE=False
+SECRET_KEY=YOUR_SECRET_KEY
+DEBUG=False
+ALLOWED_HOSTS=localhost
 
-## Чек-лист для проверки перед отправкой задания
+POSTGRES_USER=django_user
+POSTGRES_PASSWORD=YOUR_PASSWORD
+POSTGRES_DB=django
 
-- Проект Taski доступен по доменному имени, указанному в `tests.yml`.
-- Проект Kittygram доступен по доменному имени, указанному в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+DB_HOST=db
+DB_PORT=5432
+```
+Соберите и запустите контейнеры:
+```
+docker compose up -d --build
+```
+Примените миграции и соберите статику
+```
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py collectstatic
+docker compose exec backend cp -r /app/collected_static/. /backend_static/static/
+```
+Создайте суперпользователя:
+```
+docker compose exec backend python manage.py createsuperuser
+```
+Проект доступен по адресу: `http://localhost:9000`.
+
+## Автор
+Амарсана Галданова
+agaldanova@gmail.com
