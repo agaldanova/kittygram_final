@@ -55,7 +55,7 @@ docker compose exec backend cp -r /app/collected_static/. /backend_static/static
 ```
 docker compose exec backend python manage.py createsuperuser
 ```
-Проект доступен по адресу: `http://localhost:9000`.
+Проект доступен по адресу: [http://localhost:9000`].
 
 ## Автор
 Амарсана Галданова
