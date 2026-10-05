@@ -2,9 +2,9 @@
 Kittygram - веб-приложение для публикации фотографий котиков.
 Финальный проект: контейнеры и CI/CD для Kittygram
 ## Workflow status
-```
+
 [![Main Taski workflow](https://github.com/agaldanova/kittygram_final/actions/workflows/main.yml/badge.svg)](https://github.com/agaldanova/kittygram_final/actions/workflows/main.yml)
-```
+
 ## Технологии
 - Python 3.12
 - Django 5.1
